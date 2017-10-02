@@ -8,18 +8,22 @@ void pl_drawgroup(Panel *p){
 	USED(p);
 }
 int pl_hitgroup(Panel *p, Mouse *m){
-	USED(p, m);
+	USED(p);
+	USED(m);
 	return 0;
 }
 void pl_typegroup(Panel *p, Rune c){
-	USED(p, c);
+	USED(p);
+	USED(c);
 }
 Point pl_getsizegroup(Panel *p, Point children){
 	USED(p);
 	return children;
 }
 void pl_childspacegroup(Panel *p, Point *ul, Point *size){
-	USED(p, ul, size);
+	USED(p);
+	USED(ul);
+	USED(size);
 }
 void plinitgroup(Panel *v, int flags){
 	v->flags=flags;

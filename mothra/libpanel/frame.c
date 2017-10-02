@@ -8,11 +8,13 @@ void pl_drawframe(Panel *p){
 	pl_box(p->b, p->r, FRAME);
 }
 int pl_hitframe(Panel *p, Mouse *m){
-	USED(p, m);
+	USED(p);
+	USED(m);
 	return 0;
 }
 void pl_typeframe(Panel *p, Rune c){
-	USED(p, c);
+	USED(p);
+	USED(c);
 }
 Point pl_getsizeframe(Panel *p, Point children){
 	USED(p);

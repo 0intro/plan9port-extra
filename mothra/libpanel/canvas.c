@@ -21,14 +21,18 @@ int pl_hitcanvas(Panel *p, Mouse *m){
 	return 0;
 }
 void pl_typecanvas(Panel *p, Rune c){
-	USED(p, c);
+	USED(p);
+	USED(c);
 }
 Point pl_getsizecanvas(Panel *p, Point children){
-	USED(p, children);
+	USED(p);
+	USED(children);
 	return Pt(0,0);
 }
 void pl_childspacecanvas(Panel *p, Point *ul, Point *size){
-	USED(p, ul, size);
+	USED(p);
+	USED(ul);
+	USED(size);
 }
 void plinitcanvas(Panel *v, int flags, void (*draw)(Panel *), void (*hit)(Panel *, Mouse *)){
 	Canvas *c;

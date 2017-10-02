@@ -163,7 +163,9 @@ Point pl_getsizeedit(Panel *p, Point children){
 	return pl_boxsize(((Edit *)p->data)->minsize, p->state);
 }
 void pl_childspaceedit(Panel *g, Point *ul, Point *size){
-	USED(g, ul, size);
+	USED(g);
+	USED(ul);
+	USED(size);
 }
 void plinitedit(Panel *v, int flags, Point minsize, Rune *text, int ntext, void (*hit)(Panel *)){
 	Edit *ep;

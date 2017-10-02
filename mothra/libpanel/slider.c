@@ -56,14 +56,17 @@ int pl_hitslider(Panel *p, Mouse *m){
 	return 0;
 }
 void pl_typeslider(Panel *p, Rune c){
-	USED(p, c);
+	USED(p);
+	USED(c);
 }
 Point pl_getsizeslider(Panel *p, Point children){
 	USED(children);
 	return pl_boxsize(((Slider *)p->data)->minsize, p->state);
 }
 void pl_childspaceslider(Panel *g, Point *ul, Point *size){
-	USED(g, ul, size);
+	USED(g);
+	USED(ul);
+	USED(size);
 }
 void plinitslider(Panel *v, int flags, Point size, void (*hit)(Panel *, int, int, int)){
 	Slider *sp;

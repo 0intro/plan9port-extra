@@ -182,14 +182,17 @@ void pl_scrolltextview(Panel *p, int dir, int buttons, int num, int den){
 	}
 }
 void pl_typetextview(Panel *g, Rune c){
-	USED(g, c);
+	USED(g);
+	USED(c);
 }
 Point pl_getsizetextview(Panel *p, Point children){
 	USED(children);
 	return pl_boxsize(((Textview *)p->data)->minsize, p->state);
 }
 void pl_childspacetextview(Panel *g, Point *ul, Point *size){
-	USED(g, ul, size);
+	USED(g);
+	USED(ul);
+	USED(size);
 }
 /*
  * Priority depends on what thing inside the panel we're pointing at.

@@ -1,6 +1,6 @@
-</$objtype/mkfile
+<$PLAN9/src/mkhdr
 
-LIB=libpanel.$O.a
+LIB=libpanel.a
 OFILES=\
 	button.$O\
 	canvas.$O\
@@ -28,6 +28,7 @@ OFILES=\
 	textwin.$O\
 	utf.$O
 
+CFLAGS=-I.
 HFILES=panel.h pldefs.h rtext.h
 
-</sys/src/cmd/mklib
+<$PLAN9/src/mklib

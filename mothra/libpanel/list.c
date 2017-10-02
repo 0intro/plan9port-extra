@@ -135,14 +135,17 @@ void pl_scrolllist(Panel *p, int dir, int buttons, int val, int len){
 	}
 }
 void pl_typelist(Panel *g, Rune c){
-	USED(g, c);
+	USED(g);
+	USED(c);
 }
 Point pl_getsizelist(Panel *p, Point children){
 	USED(children);
 	return pl_boxsize(((List *)p->data)->minsize, p->state);
 }
 void pl_childspacelist(Panel *g, Point *ul, Point *size){
-	USED(g, ul, size);
+	USED(g);
+	USED(ul);
+	USED(size);
 }
 void plinitlist(Panel *v, int flags, char *(*gen)(Panel *, int), int nlist, void (*hit)(Panel *, int, int)){
 	List *lp;

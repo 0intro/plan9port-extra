@@ -100,14 +100,18 @@ int pl_hitpulldown(Panel *g, Mouse *m){
 	return g->state==DOWN;
 }
 void pl_typepulldown(Panel *p, Rune c){
-	USED(p, c);
+	USED(p);
+	USED(c);
 }
 Point pl_getsizepulldown(Panel *p, Point children){
-	USED(p, children);
+	USED(p);
+	USED(children);
 	return pl_boxsize(pl_iconsize(p->flags, ((Pulldown *)p->data)->icon), p->state);
 }
 void pl_childspacepulldown(Panel *p, Point *ul, Point *size){
-	USED(p, ul, size);
+	USED(p);
+	USED(ul);
+	USED(size);
 }
 void plinitpulldown(Panel *v, int flags, Icon *icon, Panel *pullthis, int side){
 	Pulldown *pp;
@@ -154,7 +158,9 @@ Panel *plmenubar(Panel *parent, int flags, int cflags, Icon *l1, Panel *m1, Icon
 	while((s=va_arg(arg, Icon *))!=0)
 		plpulldown(v, cflags, s, va_arg(arg, Panel *), pulldir);
 	va_end(arg);
-	USED(l1, m1, l2);
+	USED(l1);
+	USED(m1);
+	USED(l2);
 	v->kind="menubar";
 	return v;
 }

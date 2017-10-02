@@ -68,11 +68,13 @@ void pl_drawmessage(Panel *p){
 	pl_textmsg(p->b, pl_box(p->b, p->r, PASSIVE), font, ((Message *)p->data)->text);
 }
 int pl_hitmessage(Panel *g, Mouse *m){
-	USED(g, m);
+	USED(g);
+	USED(m);
 	return 0;
 }
 void pl_typemessage(Panel *g, Rune c){
-	USED(g, c);
+	USED(g);
+	USED(c);
 }
 Point pl_getsizemessage(Panel *p, Point children){
 	Message *mp;
@@ -81,7 +83,9 @@ Point pl_getsizemessage(Panel *p, Point children){
 	return pl_boxsize(pl_foldsize(font, mp->text, mp->minsize.x), PASSIVE);
 }
 void pl_childspacemessage(Panel *p, Point *ul, Point *size){
-	USED(p, ul, size);
+	USED(p);
+	USED(ul);
+	USED(size);
 }
 void plinitmessage(Panel *v, int flags, int wid, char *msg){
 	Message *mp;

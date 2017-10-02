@@ -84,7 +84,8 @@ int pl_hitbutton(Panel *p, Mouse *m){
 	return 0;
 }
 void pl_typebutton(Panel *g, Rune c){
-	USED(g, c);
+	USED(g);
+	USED(c);
 }
 Point pl_getsizebutton(Panel *p, Point children){
 	Point s;
@@ -104,7 +105,9 @@ Point pl_getsizebutton(Panel *p, Point children){
 	return pl_boxsize(s, p->state);
 }
 void pl_childspacebutton(Panel *g, Point *ul, Point *size){
-	USED(g, ul, size);
+	USED(g);
+	USED(ul);
+	USED(size);
 }
 void pl_initbtype(Panel *v, int flags, Icon *icon, void (*hit)(Panel *, int, int), int btype){
 	Button *bp;

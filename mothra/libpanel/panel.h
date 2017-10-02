@@ -130,10 +130,10 @@ Panel *plidollist(Panel*, int, Point, Font*, Idol*, void (*)(Panel*, int, void*)
 Panel *pllabel(Panel *pl, int, Icon *);
 Panel *pllist(Panel *pl, int, char *(*)(Panel *, int), int, void(*)(Panel *pl, int, int));
 Panel *plmenu(Panel *pl, int, Icon **, int, void (*)(int, int));
-Panel *plmenubar(Panel *pl, int, int, Icon *, Panel *pl, Icon *, ...);
+Panel *plmenubar(Panel *, int, int, Icon *, Panel *, Icon *, ...);
 Panel *plmessage(Panel *pl, int, int, char *);
-Panel *plpopup(Panel *pl, int, Panel *pl, Panel *pl, Panel *pl);
-Panel *plpulldown(Panel *pl, int, Icon *, Panel *pl, int);
+Panel *plpopup(Panel *, int, Panel *, Panel *pl, Panel *);
+Panel *plpulldown(Panel *, int, Icon *, Panel *, int);
 Panel *plradiobutton(Panel *pl, int, Icon *, void (*)(Panel *pl, int, int));
 Panel *plscrollbar(Panel *plparent, int flags);
 Panel *plslider(Panel *pl, int, Point, void(*)(Panel *pl, int, int, int));

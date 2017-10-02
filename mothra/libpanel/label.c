@@ -15,18 +15,22 @@ void pl_drawlabel(Panel *p){
 	pl_drawicon(p->b, pl_box(p->b, p->r, PASSIVE), l->placement, p->flags, l->icon);
 }
 int pl_hitlabel(Panel *p, Mouse *m){
-	USED(p, m);
+	USED(p);
+	USED(m);
 	return 0;
 }
 void pl_typelabel(Panel *p, Rune c){
-	USED(p, c);
+	USED(p);
+	USED(c);
 }
 Point pl_getsizelabel(Panel *p, Point children){
 	USED(children);		/* shouldn't have any children */
 	return pl_boxsize(pl_iconsize(p->flags, ((Label *)p->data)->icon), PASSIVE);
 }
 void pl_childspacelabel(Panel *g, Point *ul, Point *size){
-	USED(g, ul, size);
+	USED(g);
+	USED(ul);
+	USED(size);
 }
 void plinitlabel(Panel *v, int flags, Icon *icon){
 	v->flags=flags|LEAF;

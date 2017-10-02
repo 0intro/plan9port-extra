@@ -76,16 +76,21 @@ int pl_hitpopup(Panel *g, Mouse *m){
 	return (m->buttons&7)!=0;
 }
 void pl_typepopup(Panel *g, Rune c){
-	USED(g, c);
+	USED(g);
+	USED(c);
 }
 Point pl_getsizepopup(Panel *g, Point children){
 	USED(g);
 	return children;
 }
 void pl_childspacepopup(Panel *g, Point *ul, Point *size){
-	USED(g, ul, size);
+	USED(g);
+	USED(ul);
+	USED(size);
 }
-int pl_pripopup(Panel *, Point){
+int pl_pripopup(Panel *g, Point children){
+	USED(g);
+	USED(children);
 	return PRI_POPUP;
 }
 void plinitpopup(Panel *v, int flags, Panel *pop0, Panel *pop1, Panel *pop2){

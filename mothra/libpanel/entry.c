@@ -84,7 +84,9 @@ Point pl_getsizeentry(Panel *p, Point children){
 	return pl_boxsize(((Entry *)p->data)->minsize, p->state);
 }
 void pl_childspaceentry(Panel *p, Point *ul, Point *size){
-	USED(p, ul, size);
+	USED(p);
+	USED(ul);
+	USED(size);
 }
 void pl_freeentry(Panel *p){
 	free(((Entry *)p->data)->entry);

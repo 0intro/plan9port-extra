@@ -34,18 +34,26 @@ Point pl_getsizeerror(Panel *g, Point childsize){
 	return childsize;
 }
 void pl_childspaceerror(Panel *g, Point *ul, Point *size){
-	USED(ul, size);
+	USED(ul);
+	USED(size);
 	pl_unexpected(g, "childspace");
 }
 void pl_scrollerror(Panel *g, int dir, int button, int num, int den){
-	USED(dir, button, num, den);
+	USED(dir);
+	USED(button);
+	USED(num);
+	USED(den);
 	pl_unexpected(g, "scroll");
 }
 void pl_setscrollbarerror(Panel *g, int top, int bot, int den){
-	USED(top, bot, den);
+	USED(top);
+	USED(bot);
+	USED(den);
 	pl_unexpected(g, "setscrollbar");
 }
-int pl_prinormal(Panel *, Point){
+int pl_prinormal(Panel *g, Point children){
+	USED(g);
+	USED(children);
 	return PRI_NORMAL;
 }
 Panel *pl_newpanel(Panel *parent, int ndata){

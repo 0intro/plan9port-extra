@@ -77,14 +77,17 @@ int pl_hitscrollbar(Panel *g, Mouse *m){
 	return g->state==DOWN;
 }
 void pl_typescrollbar(Panel *p, Rune c){
-	USED(p, c);
+	USED(p);
+	USED(c);
 }
 Point pl_getsizescrollbar(Panel *p, Point children){
 	USED(children);
 	return pl_boxsize(((Scrollbar *)p->data)->minsize, p->state);
 }
 void pl_childspacescrollbar(Panel *p, Point *ul, Point *size){
-	USED(p, ul, size);
+	USED(p);
+	USED(ul);
+	USED(size);
 }
 /*
  * Arguments lo, hi and len are in the scrollee's natural coordinates
@@ -107,7 +110,9 @@ void pl_setscrollbarscrollbar(Panel *p, int lo, int hi, int len){
 	if(sp->hi>mylen) sp->hi=mylen;
 	pldraw(p, p->b);
 }
-int pl_priscrollbar(Panel *, Point){
+int pl_priscrollbar(Panel *g, Point children){
+	USED(g);
+	USED(children);
 	return PRI_SCROLLBAR;
 }
 void plinitscrollbar(Panel *v, int flags){
