@@ -1,4 +1,6 @@
-</$objtype/mkfile
+MKSHELL=$PLAN9/bin/rc
+
+<$PLAN9/src/mkhdr
 TARG=pq\
 	pqgen\
 	pqsrv\
@@ -8,11 +10,12 @@ HFILES=\
 	pqev.h\
 	pqsrv.h\
 
-LIB=lib/libpq.a
-BIN=/$objtype/bin
+LIB=$PLAN9/lib/libpq.a
+BIN=$PLAN9/bin
 CLIB=`{ls lib/*.c}
+CFLAGS=-I.
 
-</sys/src/cmd/mkmany
+<$PLAN9/src/mkmany
 
 $LIB: $CLIB
 	@ { cd lib && mk }

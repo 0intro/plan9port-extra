@@ -1,4 +1,4 @@
-MAN=/sys/man
+MAN=$PLAN9/man
 TARG=\
 	1/pq \
 	2/pq \
