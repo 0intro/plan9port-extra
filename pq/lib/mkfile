@@ -1,4 +1,4 @@
-</$objtype/mkfile
+<$PLAN9/src/mkhdr
 
 LIB=libpq.a
 OFILES=\
@@ -14,7 +14,7 @@ HFILES=	../pq.h\
 	all.h\
 	config.h\
 
-</sys/src/cmd/mksyslib
+<$PLAN9/src/mksyslib
 
 config.c: mkmods
 	sed <mkmods >config.c '

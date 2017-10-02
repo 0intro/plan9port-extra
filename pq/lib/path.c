@@ -35,6 +35,7 @@ path_close(void *vpath)
 	return rv;
 }
 
+int
 path_read(void *vpath, char **argv)
 {
 	Path *path = vpath;
@@ -52,6 +53,7 @@ path_read(void *vpath, char **argv)
 	return rv;
 }
 
+int
 path_write(void *vpath, char **argv)
 {
 	Path *path = vpath;

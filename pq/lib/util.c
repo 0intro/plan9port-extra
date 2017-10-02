@@ -79,11 +79,13 @@ strvecc(char *str, char **vec, char sepc)
 	return i;
 }
 
+#ifndef PLAN9PORT
 char*
 strndup(char *s, int n)
 {
 	return strncpy(malloc(n+1), s, n+1);
 }
+#endif
 
 int
 cnt(char **argv)
