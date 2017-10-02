@@ -1,0 +1,57 @@
+.TH DISPATCH 7
+.SH NAME
+dispatch \- PQ IRDB directory configuration file
+.SH DESCRIPTION
+.I Dispatch
+files are used by the
+.I join
+module of
+.IR pq (1)
+to access an Implicit Relational Database (IRDB) directory.
+A
+.I dispatch
+file contains a list of module arguments, one per line.
+Argument words are separated by white space.
+An open is attempted for each line in turn until one succeeds, or the
+end of file is reached, in which case an error is returned.
+.P
+See
+.IR modules (7)
+for a description of
+.I join
+and module arguments.
+.SH EXAMPLES
+The following dispatch file describes relations for two local
+directories and a pointer to a host for attributes that can
+not be found locally.  The two local relations are in the
+directories
+.B /lib/pq/name
+and
+.BR /lib/pq/phone .
+Within those directories are
+.L Data
+and
+.L Proto
+files that contain the values for the relation and
+the attributes for that relation, respectively.
+.PP
+.EX
+> +ssn first middle last street street2 city state zip
+ev /sys/src/cmd/pq/example/name
+> +ssn number type
+ev /sys/src/cmd/pq/example/phone
+opt call host.com
+.EE
+.SH FILES
+.PD 0
+.TP 30
+/lib/pq/dispatch
+default pq configuration file
+.TP 30
+/sys/src/cmd/pq/example/dispatch
+sample dispatch file
+.PD
+.SH SEE ALSO
+.IR pq (1),
+.IR pq (2),
+.IR modules (7).

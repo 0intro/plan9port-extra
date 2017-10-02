@@ -1,0 +1,26 @@
+</$objtype/mkfile
+TARG=pq\
+	pqgen\
+	pqsrv\
+
+HFILES=\
+	pq.h\
+	pqev.h\
+	pqsrv.h\
+
+LIB=lib/libpq.a
+BIN=/$objtype/bin
+CLIB=`{ls lib/*.c}
+
+</sys/src/cmd/mkmany
+
+$LIB: $CLIB
+	@ { cd lib && mk }
+
+clean:V:
+	@ { cd lib && mk clean }
+	rm -f *.[$OS] *.[$OS].a y.tab.? y.debug y.output
+
+nuke:V:
+	@ { cd lib && mk nuke }
+	rm -f *.[$OS] *.[$OS].a y.tab.? y.debug y.output [$OS].$TARG $TARG

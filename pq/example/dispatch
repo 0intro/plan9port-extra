@@ -1,0 +1,5 @@
+> +ssn first middle last street street2 city state zip
+ev /sys/src/cmd/pq/example/name
+> +ssn number type
+ev /sys/src/cmd/pq/example/phone
+opt call host.com

@@ -1,0 +1,266 @@
+.TH PQ 1
+.SH NAME
+pq, pqgen, pqsrv \- PQ IRDB directory access
+.SH SYNOPSIS
+.B pq
+.B -o
+.I format
+[
+.B -a
+.I attrs
+]
+[
+.B -m
+.I modules
+]
+[
+.B -s
+.I seps
+]
+[
+.B -d
+.I debug
+]
+.I query
+\&...
+.PP
+.B pqgen
+[
+.I directory
+]
+.PP
+.B pqsrv
+[
+.I modules
+]
+.SH DESCRIPTION
+.I Pq
+connects to an Implicit Relational Database (IRDB) directory
+and outputs the record(s) that match the query arguments.
+The directory contacted may be specified by a
+.I modules
+argument (see
+.IR dispatch (7)).
+.PP
+Each
+.I query
+argument results in an independent query of the directory,
+consisting of a set of input attributes,
+obtained from the
+.I query
+argument, and a set of output attributes, obtained from the output format
+(see the
+.B -o
+option).
+The output of all the queries are formatted according to the output format
+and concatenated on standard output.
+.PP
+Each
+.I query
+argument is a list of strings of the form
+.BI attribute = value
+separated by any number of separator characters (default is
+.B |,
+but can be changed via the
+.B -s
+option).
+The string
+.BI attribute =
+may be elided, in which case the attribute name is taken
+from the corresponding token in the
+.B -a
+option.
+It is an error if there is no corresponding attribute name.
+The
+.I query
+argument may be the empty string; in this case, all records that contain
+the output attributes are returned.
+The options are:
+.TP
+.BI -m " modules
+Contact the directory specified by the
+.I modules
+string; the format is described in
+.IR dispatch (7).
+The default value for
+.I modules
+is the empty string.
+.TP
+.BI -s " seps
+Set the separator character list for delimiting tokens in
+.I query
+arguments and the
+.B -a
+option string;
+.B |,
+is the default.
+.TP
+.BI -o " format
+Use the output format specified.
+See below for a full description.
+.TP
+.BI -a " attrs
+Set the default attribute names for query components that
+do not specify them.
+.TP
+.BI -d " debug
+Print information regarding internal operations.
+Values for
+.I debug
+range from 1 to 3, with 3 yielding the most detail.
+.SS Output Formatting
+The \fIformat\fP argument specified with the \f(CB\-o\fP
+option is used like a \f(CBprint\fP(2)
+string for formatting the output of directory queries.
+All characters are copied literally, except for
+attribute substitutions and backslash escapes.
+Quoting may be necessary to prevent shell interpretation.
+The syntax for attribute substitutions is this:
+.IP
+\fB% \fIflags minimum . maximum \fI{attribute}\fP
+.PP
+Only
+.BR % " and
+.I attribute
+are required.  Curly braces, \fB{}\fP, are required 
+only when the \fIattribute\fP is
+immediately followed by an alphanumeric.
+.I Flags
+may be one or more of the following:
+.sp 99
+.RS 2
+.PD 0
+.TP
+.B \(mi
+Right justify (left justification is the default).
+.TP
+.B ^
+Capitalize the first letter of each word.
+.TP
+.B +
+Capitalize all letters in the value.
+.TP
+.B <
+If the value is empty,
+delete back to the last 
+.B \e\^<
+or beginning of output.
+.TP
+.B >
+If the value is empty, skip to the next 
+.B \e\^>
+or end of format string.
+.RE
+.PD
+.PP
+.I Minimum
+is an integer giving the minimum field width.  
+If the value has fewer than the minimum number of characters, the
+field will be padded with blanks.
+The default
+.I minimum
+is zero. 
+.P  
+.I Maximum
+is an integer that specifies 
+the maximum number of characters to
+be output from the value.
+If the value has 
+more characters than this number, the value will be truncated.
+A maximum of zero (the default) causes all characters to be output.
+A period is used to
+separate 
+.I minimum
+and
+.I maximum
+and is only required if
+.I maximum
+is specified.
+.PP
+.ne 3i
+The following table lists backslash escapes that are recognized
+by \f(CIpq\fP(1):
+.PP
+.TS
+allbox,center,tab(;);
+c s
+c | c
+c | l.
+\fBOutput Format Backslash Escapes\fP
+\fIEscape;Meaning\fP
+_
+\e\^\f(CBb\fP;Backspace
+\e\^\f(CBc\fP;Suppress terminating newline
+\e\^\f(CBf\fP;Formfeed
+\e\^\f(CBn\fP;Newline
+\e\^\f(CIooo\fP;ASCII character defined by an octal number
+\e\^\f(CBr\fP;Carriage return
+\e\^\f(CBt\fP;Tab
+\e\^\f(CBv\fP;Vertical tab
+\e\^\f(CB<\fP;Marker for < flag
+\e\^\f(CB>\fP;Marker for > flag
+.TE
+.PP
+.I Pqgen
+is used to create index files for an existing
+IRDB
+.IR ev (7)
+directory.
+Once indexed, the speed of lookups is greatly improved.
+However, it is then necessary to rerun
+.I pqgen
+after any changes are made to the
+.I ev
+database.
+The
+.I directory
+is the location of the
+.I ev
+database.
+If not an absolute pathname, it is interpreted relative to
+.BR /lib/pq .
+.PP
+.I Pqsrv
+is the server that handles incoming PQ requests.
+It is meant to be run by
+.IR listen (8),
+typically for TCP port 411.
+The optional
+.I modules
+argument is the same as that to
+.IR pq (1)
+above.
+.SH EXAMPLES
+Find the telephone number of employee with login of \f(CBliz\fP:
+.IP
+\f(CBpq -o %telephone 'login=liz'\fP
+.PP
+List addresses of employees in New Jersey and Texas who are full-time:
+.IP
+\f(CBpq -o '%20name %25addr %state %zip' 'status=FT|state=NJ|state=TX'\fP
+.PP
+Consult
+.B /sys/src/cmd/pq/example
+for a more detailed example.
+.SH FILES
+.TP 35
+.B /lib/pq/dispatch
+default dispatch file
+.TP
+.B /rc/bin/service/tcp411
+typical location for
+.I pqsrv
+.SH DIAGNOSTICS
+.I Pq
+prints a diagnostic to the standard error and exits with status
+.B no records
+if there are no matches.
+Otherwise, it returns a successful status.
+.SH SOURCE
+.B /sys/src/cmd/pq
+.br
+.SH SEE ALSO
+.IR pq (2),
+.IR dispatch (7),
+.IR ev (7),
+.IR listen (8).

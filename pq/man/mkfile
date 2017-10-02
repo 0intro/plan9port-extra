@@ -1,0 +1,28 @@
+MAN=/sys/man
+TARG=\
+	1/pq \
+	2/pq \
+	7/ev \
+	7/modules \
+	7/dispatch \
+
+none:VQ:
+	echo usage: mk install, safeinstall
+
+%.install:V:	$MAN/%
+
+$MAN/%:	%
+	cp $stem $MAN/$stem
+
+install:V:
+	for (i in $TARG)
+		mk $MKFLAGS $i.install
+
+%.safeinstall:V:
+	test -e $MAN/$stem && mv $MAN/$stem $MAN/_$stem
+	mk $stem.install
+
+safeinstall:V:
+	for(i in $TARG)
+		mk $MKFLAGS $i.safeinstall
+

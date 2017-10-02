@@ -1,0 +1,30 @@
+</$objtype/mkfile
+
+LIB=libpq.a
+OFILES=\
+	fmt.$O\
+	util.$O\
+	config.$O\
+	`{sed 's/$/.$O/' <mkmods}
+
+CFLAGS=-I..
+HFILES=	../pq.h\
+	../pqev.h\
+	../pqsrv.h\
+	all.h\
+	config.h\
+
+</sys/src/cmd/mksyslib
+
+config.c: mkmods
+	sed <mkmods >config.c '
+	1i\
+		#include "all.h"\
+		Module modtab[] = {
+	s/.*/"&", &_open, &_close, &_read, &_write,/
+	$a\
+		nil};'
+
+config.h: mkmods
+	sed <mkmods >config.h '
+	s/.*/void* &_open(char**); int &_close(void*); int &_read(void*, char**); int &_write(void*, char**);/'

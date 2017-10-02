@@ -1,0 +1,37 @@
+For the following examples, the variable $example should be set
+to the location of this directory.  For a typical installation
+	example=/sys/src/cmd/pq/example
+Once installed, the default location for the dispatch file of
+/lib/pq/dispatch will remove the need for the -m flag.
+
+List addresses for all entries in the directory.  Note that the line with "%street2"
+is only printed if it is not empty.
+	pq -m 'join '^$example^'/dispatch' \
+		-o '%first %last\n%street\<\n%<>street2\>\n%city, %state  %zip\n' ''
+
+List phone numbers and type for all entries in the directory.
+	pq -m 'join '^$example^'/dispatch' -o '%15last %15first %number (%type)' ''
+
+List the "Home" phone number for anyone with the last name "Smith".
+	pq -m 'join '^$example^'/dispatch' -o '%number' 'last=Smith|type=Home'
+
+List all the "Home" and "Mobile" numbers in the directory.
+	pq -m 'join '^$example^'/dispatch' \
+		-o '%type number for %first %last is %number' 'type=Home|type=Mobile'
+
+Create an alphabetized list of addresses and phone numbers for the
+entire directory.  The first pq creates a list of "ssn"s that is in
+alphabetical order.  The next pq prints the address and the final pq
+prints the phone numbers.
+
+Question for the reader: What would happen if we combined the address
+and phone number queries into one query?  Try it and find out.
+
+for (i in `{pq -m 'join '^$example^'/dispatch' \
+		-o '%last %first %ssn'  '' | sort -df | sed 's/.* //'})
+	{
+	pq -m 'join '^$example^'/dispatch' \
+		-o '%first %last\n%street\<\n%<>street2\>\n%city, %state  %zip' 'ssn='$i
+	pq -m 'join '^$example^'/dispatch' -o '%6type: %number' 'ssn='$i
+	echo ''
+	}

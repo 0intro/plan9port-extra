@@ -1,0 +1,15 @@
+void* alias_open(char**); int alias_close(void*); int alias_read(void*, char**); int alias_write(void*, char**);
+void* call_open(char**); int call_close(void*); int call_read(void*, char**); int call_write(void*, char**);
+void* copy_open(char**); int copy_close(void*); int copy_read(void*, char**); int copy_write(void*, char**);
+void* ev_open(char**); int ev_close(void*); int ev_read(void*, char**); int ev_write(void*, char**);
+void* forge_open(char**); int forge_close(void*); int forge_read(void*, char**); int forge_write(void*, char**);
+void* format_open(char**); int format_close(void*); int format_read(void*, char**); int format_write(void*, char**);
+void* join_open(char**); int join_close(void*); int join_read(void*, char**); int join_write(void*, char**);
+void* log_open(char**); int log_close(void*); int log_read(void*, char**); int log_write(void*, char**);
+void* opt_open(char**); int opt_close(void*); int opt_read(void*, char**); int opt_write(void*, char**);
+void* path_open(char**); int path_close(void*); int path_read(void*, char**); int path_write(void*, char**);
+void* pq_open(char**); int pq_close(void*); int pq_read(void*, char**); int pq_write(void*, char**);
+void* rewrite_open(char**); int rewrite_close(void*); int rewrite_read(void*, char**); int rewrite_write(void*, char**);
+void* suffix_open(char**); int suffix_close(void*); int suffix_read(void*, char**); int suffix_write(void*, char**);
+void* virt_open(char**); int virt_close(void*); int virt_read(void*, char**); int virt_write(void*, char**);
+void* zap_open(char**); int zap_close(void*); int zap_read(void*, char**); int zap_write(void*, char**);

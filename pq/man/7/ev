@@ -1,0 +1,142 @@
+.TH ev 7
+.SH NAME
+ev \- PQ IRDB database system
+.SH DESCRIPTION
+\fIEv\fP is a simple database system used for
+.IR pq (1)
+Implicit Relational Database (IRDB) directory queries. 
+An \fIev\fP database consists of a data file, a proto file describing the 
+contents of the data file and optional index files for efficient 
+database queries.
+The arguments to \fIev\fP provide the data and proto file names,
+the directory containing the index files, and the database separator.
+See 
+.IR modules (7).
+.P
+An \fIev\fP data file is a Unicode file composed of newline-terminated
+lines.
+Each line in the data file represents a database record and contains
+delimited, variable-length fields denoting database attributes.
+.P
+Information describing the database attributes is stored in a proto file and
+used to create the index files and to resolve runtime queries.
+Lines in the proto file are newline terminated and have
+the following tab- or space-separated fields:
+.TP 20
+attribute name
+Name of attribute in the database.
+Cannot be the string \fBattribute\fP or contain the equal sign character 
+(\fB=\fP).
+Must be less than 15 characters.
+.TP 
+attribute address
+Position of the attribute in the data file.
+Attributes are counted left to right starting with field 1 and are
+separated by a character delimiter.
+See 
+.IR modules (7).
+.TP 
+primary length
+Length (in bytes) of entries in the \fIprimary index file\fP.
+For attributes that use the numeric matching algorithm, the attribute
+length must be at least as large as the longest value.
+If index files are not used, this is set to a period (\fB.\fP).
+.TP 
+secondary length
+Length (in bytes) of entries in the \fIsecondary index file\fP.
+For attributes that use the numeric matching algorithm, the attribute
+length must be at least as large as the longest value.
+If index files are not used, this is set to a period (\fB.\fP).
+.TP 
+match
+The match flag is a single character representing the matching
+algorithm used for this attribute in database queries.
+The possible values are listed below under
+.IR "Match Type" .
+The match flag may be accompanied by zero or more of the
+.I "Value Characteristics"
+also listed below.
+The order of these one-character flags is not significant.
+.TP 
+multiple
+Contains either a period (\fB.\fP), \fBm\fP, or \fBm=\fP\fIx\fP.
+Value \fBm\fP denotes a \fImultiple field\fP.
+Value
+.BI m= x
+signifies the database attribute used to distinguish
+between the \fImain\fP line in the data file (attribute=\fIx\fP) and 
+\fIauxiliary\fP ones (attribute!=\fIx\fP).
+There can be at most one attribute with value
+.BI m= x
+per proto file.
+.TP 
+default index
+Index files are create by 
+.IR pqgen (1M)
+for those attributes with default index flag equal to \fBi\fP.
+Attributes with default index equal to a period (\fB.\fP) can also be used 
+to query the database but with worse performance.
+Attributes used frequently for database queries should be indexed.
+.SS Match Type
+.PD 0
+.TP
+.B e
+Exact match.
+.TP
+.B n 
+Numeric match.
+.TP
+.B p
+Prefix match.
+.TP
+.B s
+Exact match unless argument ends with a star
+.RB ( * ),
+in which case prefix match.
+.PD
+.SS Value Characteristics
+.PD 0
+.TP
+.B a
+Ignore non-alphanumerics.
+.TP
+.B i
+Ignore case.
+.TP
+.B m
+Multiple entry match.
+If argument is empty,
+.BR 1 " or"
+.BR 2 ,
+retrieve first, second or third record for
+.IR query ,
+respectively.
+.PD
+.P
+The order of the attributes as they appear in the proto file is significant.
+For database queries with two or more qualifiers, the attribute that 
+appears first in the proto file is used to perform the search of the database.
+Attributes with index files are preferred.
+.P
+Index files, created by 
+.IR pqgen (1)
+using the data and proto files, improve performance of database queries.
+Index files are arranged in a multiway tree format to improve
+performance and limit the amount of core memory needed.
+.P
+The C interface to \fIev\fP can be seen in 
+.IR pq (2).
+.SH FILES
+.PD 0
+.TP 30
+/lib/pq/dispatch
+default pq configuration file
+.TP
+/sys/src/cmd/pq/example/dispatch
+sample dispatch file
+.PD
+.SH SEE ALSO
+.IR pq (1),
+.IR pqgen (1),
+.IR pq (2), 
+.IR modules (7).

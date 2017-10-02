@@ -1,0 +1,81 @@
+.TH MODULES 7
+.SH NAME
+modules \- PQ IRDB directory software configuration
+.SH DESCRIPTION
+A modules argument describes a particular Implicit
+Relational Database (IRDB) directory or network address.
+The
+.B \-m
+option of
+.IR pq (1)
+must describe a directory,
+and the
+.I pq_open
+call of
+.IR pq (2)
+can describe either a directory or a network address.
+The syntax for modules arguments is described below.
+The
+.I dirmod
+and
+.I netmod
+arguments below are modules arguments themselves;
+in this way various modules can be stacked in a pipeline fashion.
+The default modules argument is
+.BR "opt join" .
+.SS "Directory Modules"
+.TP
+\fBjoin\fP \fIfile\fP
+Attach to one or more directories listed in
+.I file.
+Relative paths are prefixed with
+.BR /lib/pq .
+.TP
+\fBcall\fP [ \fInetmod \fP ... ]
+Connect to the network address specified by
+.I netmod
+and use the
+.I pqsrv
+protocol.
+.TP
+\fBev\fP [ \fIname\fP [ \fIdata proto lock\fP ] ]
+Specify the location of the data, prototype and
+lock files for the
+.IR ev (7)
+IRDB
+.IR name .
+With no options, the location is assumed to be ".".
+If only
+.I name
+is specified, the data file is assumed to be
+in either
+.IB name /Data
+or
+.BI D. name.
+Likewise, the prototype and lock files are sought in
+.IB name /Proto
+or
+.BI P. name
+and
+.IB name /Lock
+or \fBL.\fP\fIname\fP, respectively.
+If
+.I name
+is not an absolute pathname it is assumed to
+be relative to
+.BR /lib/pq .
+.TP
+\fBopt\fP [ \fIdirmod\fP ]
+Optimize the performance of the module argument.
+.TE
+.P
+.SH FILES
+.PD 0
+.TP 30
+.B /lib/pq/dispatch
+default dispatch file
+.PD
+.SH SEE ALSO
+.IR pq (1),
+.IR pqsrv (1),
+.IR pq (2).
