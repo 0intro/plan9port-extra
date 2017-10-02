@@ -46,7 +46,6 @@ void getimage(Rtext *t, Www *w){
 	int fd;
 	char err[512];
 	Pix *p;
-	int alpha;
 	ap=t->user;
 	crackurl(&url, ap->image, w->base);
 	free(ap->image);
@@ -156,10 +155,6 @@ void setbitmap(Rtext *t){
 }
 void getpix(Rtext *t, Www *w){
 	Action *ap;
-	Url url;
-	int fd;
-	Image *b;
-	char err[512];
 	for(;t!=0;t=t->next){
 		ap=t->user;
 		if(ap && ap->image)

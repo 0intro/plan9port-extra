@@ -14,7 +14,9 @@ struct Cache{
 void httpheader(Url *, char *);
 int httpresponse(char *);
 static char *proxyserver;	/* name of proxy server */
-void exitnow(void*, char*){
+void exitnow(void *v, char *c){
+	USED(v);
+	USED(c);
 	noted(NDFLT);
 }
 void hashname(char *name, char *stem, Cache *c){
@@ -174,6 +176,9 @@ int http(Url *url, int method, char *body){
 	int cfd, cookiefd;
 	static int firsttime=1;
 	static int gotcookies;
+
+	len=0;
+	n=0;
 
 	if(firsttime){
 		proxyserver=getenv("httpproxy");

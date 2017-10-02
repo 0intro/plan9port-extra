@@ -173,8 +173,8 @@ enum{
 	OPTEND=3,		/* tag may have a matching end tag */
 	ERR=4,			/* tag must not occur */
 };
-Tag tag[];
-Entity pl_entity[];
+extern Tag tag[];
+extern Entity pl_entity[];
 int pl_entities;
 void rdform(Hglob *);
 void endform(Hglob *);

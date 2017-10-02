@@ -1,7 +1,9 @@
-</$objtype/mkfile
+MKSHELL=$PLAN9/bin/rc
+
+<$PLAN9/src/mkhdr
 
 TARG=mothra
-LIB=libpanel/libpanel.$O.a 
+LIB=libpanel/libpanel.a $PLAN9/lib/libthread.a
 CFILES= \
 	cistr.c \
 	crackurl.c \
@@ -20,8 +22,8 @@ CFILES= \
 
 OFILES=${CFILES:%.c=%.$O} version.$O
 HFILES=mothra.h html.h libpanel/panel.h libpanel/rtext.h
-BIN=/$objtype/bin
-</sys/src/cmd/mkone
+BIN=$PLAN9/bin
+<$PLAN9/src/mkone
 
 CFLAGS=-Dplan9 -Ilibpanel
 version.c:	$CFILES

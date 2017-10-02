@@ -11,7 +11,7 @@
  * in the directory.
  */
 int dir2html(char *name, int fd){
-	int p[2], first;
+	int p[2];
 	Dir *dir;
 	int i, n;
 	if(pipe(p)==-1){
@@ -30,7 +30,6 @@ int dir2html(char *name, int fd){
 		fprint(p[0], "<body>\n");
 		fprint(p[0], "<h1>%s</h1>\n", name);
 		fprint(p[0], "<ul>\n");
-		first=1;
 		while((n = dirread(fd, &dir)) > 0) {
 		  for (i = 0; i < n; i++)
 			fprint(p[0], "<li><a href=\"%s/%s\">%s%s</a>\n", name, dir[i].name, dir[i].name,

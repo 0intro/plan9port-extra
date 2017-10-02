@@ -108,7 +108,8 @@ char *buttons[]={
 	"exit",
 	0
 };
-void err(Display *, char *msg){
+void err(Display *d, char *msg){
+	USED(d);
 	fprint(2, "err: %s (%r)\n", msg);
 	abort();
 }
@@ -138,7 +139,7 @@ void adjkb(void){
 }
 void mkpanels(void){
 	Panel *p, *bar;
-	menu3=plmenu(0, 0, buttons, PACKN|FILLX, hit3);
+	menu3=plmenu(0, 0, (Icon**)buttons, PACKN|FILLX, hit3);
 	root=plpopup(root, EXPAND, 0, 0, menu3);
 		p=plgroup(root, PACKN|FILLX);
 			msg=pllabel(p, PACKN|FILLX, "mothra");
@@ -201,7 +202,9 @@ void killcohort(void){
 		sleep(1);
 	}
 }
-void dienow(void*, char*){
+void dienow(void *v, char *c){
+	USED(v);
+	USED(c);
 	noted(NDFLT);
 }
 int mkmfile(char *stem, int mode){
@@ -227,7 +230,7 @@ int mkmfile(char *stem, int mode){
 		f=create(stem, OWRITE, mode);
 	return f;
 }
-void main(int argc, char *argv[]){
+void threadmain(int argc, char *argv[]){
 	Event e;
 	enum { Eplumb = 128 };
 	Plumbmsg *pm;
@@ -346,7 +349,6 @@ void message(char *s, ...){
 }
 void showsel(char *s){
 	static char buf[1024];
-	char *out;
 	sprint(buf, "selection: %s", s);
 	plinitlabel(selbox, PACKN|FILLX, buf);
 	if(defdisplay) pldraw(selbox, screen);
@@ -393,7 +395,8 @@ void *emalloc(int n){
 	}
 	return v;
 }
-char *genwww(Panel *, int index){
+char *genwww(Panel *p, int index){
+	USED(p);
 	static char buf[1024];
 	int i;
 	for(i=1;i!=nwww;i++) if(index==www[i].index){
@@ -410,7 +413,6 @@ void donecurs(void){
  * get the document, scroll to the given tag
  */
 void setcurrent(int index, char *tag){
-	static char buf[1024];
 	Www *new;
 	Rtext *tp;
 	Action *ap;

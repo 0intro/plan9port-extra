@@ -84,17 +84,24 @@ char*
 domainname(void)
 {
 	static char domain[Ndbvlen];
+#ifndef PLAN9PORT
 	Ndbtuple *t;
+#endif
 
 	if(*domain)
 		return domain;
 
+#ifdef PLAN9PORT
+	gethostname(domain, sizeof(domain));
+	return domain;
+#else
 	t = csgetval(0, "sys", sysname(), "dom", domain);
 	if(t){
 		ndbfree(t);
 		return domain;
 	} else
 		return sysname();
+#endif
 }
 
 static int

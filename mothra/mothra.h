@@ -122,10 +122,13 @@ Image *floyd(Rectangle, int, uchar *);
 int auth(Url*, char*, int);
 uchar cmap[256*3];
 RGB map[256];
-char version[];
+extern char version[];
 #ifndef brazil
 #	define	RFREND	0
 #endif
 #ifndef	nil
 #define	nil	0
 #endif
+
+#undef gettext
+#define gettext p9_gettext

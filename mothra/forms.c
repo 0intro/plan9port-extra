@@ -300,7 +300,9 @@ void endform(Hglob *g){
 		break;
 	}
 }
-char *nullgen(Panel *, int ){
+char *nullgen(Panel *p, int index){
+	USED(p);
+	USED(index);
 	return 0;
 }
 char *selgen(Panel *p, int index){
@@ -385,10 +387,12 @@ void mkfieldpanel(Rtext *t){
 		t->hot=1;
 	}
 }
-void h_checkinput(Panel *p, int, int v){
+void h_checkinput(Panel *p, int b, int v){
+	USED(b);
 	((Field *)p->userp)->state=v;
 }
-void h_radioinput(Panel *p, int, int v){
+void h_radioinput(Panel *p, int b, int v){
+	USED(b);
 	Field *f, *me;
 	me=p->userp;
 	me->state=v;
@@ -401,7 +405,8 @@ void h_radioinput(Panel *p, int, int v){
 			}
 	}
 }
-void h_select(Panel *p, int, int index){
+void h_select(Panel *p, int b, int index){
+	USED(b);
 	Option *a;
 	Field *f;
 	f=p->userp;
@@ -413,7 +418,8 @@ void h_select(Panel *p, int, int index){
 	plinitpulldown(f->p, FIXEDX, seloption(f), f->pulldown, PACKS);
 	pldraw(f->p, screen);
 }
-void h_resetinput(Panel *p, int){
+void h_resetinput(Panel *p, int b){
+	USED(b);
 	Field *f;
 	Option *o;
 	for(f=((Field *)p->userp)->form->fields;f;f=f->next) switch(f->type){
@@ -438,7 +444,8 @@ void h_edit(Panel *p){
 }
 Rune *snarfbuf=0;
 int nsnarfbuf=0;
-void h_snarf(Panel *p, int){
+void h_snarf(Panel *p, int b){
+	USED(b);
 	int s0, s1;
 	Rune *text;
 	p=p->userp;
@@ -458,7 +465,8 @@ void h_cut(Panel *p, int b){
 	h_snarf(p, b);
 	plepaste(p->userp, 0, 0);
 }
-void h_paste(Panel *p, int){
+void h_paste(Panel *p, int b){
+	USED(b);
 	plepaste(p->userp, snarfbuf, nsnarfbuf);
 }
 int ulen(char *s){
@@ -509,17 +517,20 @@ char *runetou(char *buf, Rune r){
  * If there's exactly one button with type=text, then
  * a CR in the button is supposed to submit the form.
  */
-void h_submittype(Panel *p, char *){
+void h_submittype(Panel *p, char *c){
+	USED(c);
 	int ntype;
 	Field *f;
 	ntype=0;
 	for(f=((Field *)p->userp)->form->fields;f;f=f->next) if(f->type==TYPEIN) ntype++;
 	if(ntype==1) h_submitinput(p, 0);
 }
-void h_submitindex(Panel *p, char *){
+void h_submitindex(Panel *p, char *c){
+	USED(c);
 	h_submitinput(p, 0);
 }
-void h_submitinput(Panel *p, int){
+void h_submitinput(Panel *p, int b){
+	USED(b);
 	Form *form;
 	int size, nrune;
 	char *buf, *bufp, sep;
